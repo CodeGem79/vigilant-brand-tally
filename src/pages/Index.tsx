@@ -1,12 +1,28 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Header } from "@/components/Header";
+import { Hero } from "@/components/Hero";
+import { PetitionCard } from "@/components/PetitionCard";
+import { mockPetitions } from "@/data/mockData";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <Hero />
+      
+      <main className="container py-12">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold mb-2">Active Investigations</h2>
+          <p className="text-muted-foreground">
+            Brands currently under observation for consumer protection violations
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {mockPetitions.map((petition) => (
+            <PetitionCard key={petition.id} petition={petition} />
+          ))}
+        </div>
+      </main>
     </div>
   );
 };
