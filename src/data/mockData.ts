@@ -168,3 +168,98 @@ We're collecting documentation from affected consumers and reviewing the warrant
     ]
   }
 ];
+
+export interface BlogArticle {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  publishedAt: string;
+  category: string;
+  featured: boolean;
+  image: string;
+}
+
+export const mockBlogArticles: BlogArticle[] = [
+  {
+    id: "blog-1",
+    title: "Understanding Your Consumer Rights: The Basics",
+    excerpt: "Every consumer has fundamental rights. Learn what protections you're entitled to and how to enforce them when companies fail to deliver.",
+    content: `# Understanding Your Consumer Rights: The Basics
+
+Every consumer has fundamental rights that are protected by law. Whether you're purchasing a product online, signing up for a service, or dealing with a faulty item, understanding these rights is crucial.
+
+## Your Core Rights
+
+1. **The Right to Safety**: Products and services should not pose harm to consumers.
+2. **The Right to Be Informed**: Companies must provide accurate information about their products.
+3. **The Right to Choose**: Consumers should have access to competitive markets.
+4. **The Right to Be Heard**: Your complaints and concerns should be addressed.
+
+## When Things Go Wrong
+
+If a company violates your consumer rights, document everything. Keep receipts, emails, and records of all communications. This documentation becomes crucial if you need to escalate your complaint.
+
+## Taking Action
+
+Start with the company's customer service, but don't stop there if you're not satisfied. Consumer protection agencies exist to help you enforce your rights.`,
+    author: "The Brand Report Team",
+    publishedAt: "2024-01-25",
+    category: "Consumer Education",
+    featured: true,
+    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&auto=format&fit=crop"
+  },
+  {
+    id: "blog-2",
+    title: "Red Flags: How to Spot Deceptive Return Policies",
+    excerpt: "Learn to identify the warning signs of problematic return policies before making a purchase. Knowledge is your best defense.",
+    content: `# Red Flags: How to Spot Deceptive Return Policies
+
+Before clicking 'buy,' take a moment to review the return policy. Here are the red flags that should make you think twice.
+
+## Warning Signs
+
+- **Vague Language**: Terms like "reasonable condition" or "at our discretion" give companies too much wiggle room
+- **Hidden Fees**: Restocking fees or return shipping costs buried in fine print
+- **Short Windows**: Return periods shorter than 14 days are often unreasonable
+- **Complex Procedures**: Requiring original packaging, receipts, and multiple forms
+
+## What Good Policies Look Like
+
+Transparent companies make returns easy. Look for clear time frames, straightforward processes, and no surprise fees.`,
+    author: "The Brand Report Team",
+    publishedAt: "2024-01-20",
+    category: "Consumer Tips",
+    featured: false,
+    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format&fit=crop"
+  },
+  {
+    id: "blog-3",
+    title: "The Hidden Cost of Free Trials",
+    excerpt: "Free trials aren't always free. Discover the tactics companies use to trap consumers in expensive subscriptions.",
+    content: `# The Hidden Cost of Free Trials
+
+That "free trial" might cost you more than you think. Here's what you need to know before signing up.
+
+## Common Tactics
+
+Companies often make it easy to sign up but difficult to cancel. They count on consumer forgetfulness and complicated cancellation processes.
+
+## Protect Yourself
+
+- Set calendar reminders before the trial ends
+- Use virtual credit cards that you can easily cancel
+- Screenshot the cancellation policy
+- Document your cancellation attempts
+
+## When to Walk Away
+
+If a company requires a phone call to cancel, that's a red flag. Legitimate services make cancellation as easy as signup.`,
+    author: "The Brand Report Team",
+    publishedAt: "2024-01-15",
+    category: "Investigations",
+    featured: false,
+    image: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=800&auto=format&fit=crop"
+  }
+];
