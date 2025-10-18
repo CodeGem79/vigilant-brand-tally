@@ -8,6 +8,7 @@ import PetitionDetail from "./pages/PetitionDetail";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
 import Admin from "./pages/Admin";
+import FileComplaint from "./pages/FileComplaint";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogDetail />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/file-complaint" element={<FileComplaint />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
