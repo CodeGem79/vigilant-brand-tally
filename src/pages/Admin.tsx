@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,12 +7,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AlertCircle, Plus, BookOpen } from "lucide-react";
+import { AlertCircle, Plus, BookOpen, BarChart3, FileText, TrendingUp } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
+import { mockPetitions } from "@/data/mockData";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 
 export default function Admin() {
   const { toast } = useToast();
+  const [complaints, setComplaints] = useState<any[]>([]);
   const [formData, setFormData] = useState({
     brand: "",
     title: "",
@@ -28,6 +32,30 @@ export default function Admin() {
     category: "Consumer Education",
     featured: false
   });
+
+  useEffect(() => {
+    // Load complaints from localStorage
+    const storedComplaints = JSON.parse(localStorage.getItem("complaints") || "[]");
+    setComplaints(storedComplaints);
+  }, []);
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "active": return "bg-blue-500";
+      case "investigating": return "bg-yellow-500";
+      case "resolved": return "bg-green-500";
+      default: return "bg-gray-500";
+    }
+  };
+
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case "active": return "Under Observation";
+      case "investigating": return "Investigating";
+      case "resolved": return "Resolved";
+      default: return status;
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,11 +100,142 @@ export default function Admin() {
           </AlertDescription>
         </Alert>
 
-        <Tabs defaultValue="investigations" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
+        <Tabs defaultValue="dashboard" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="investigations">Investigations</TabsTrigger>
             <TabsTrigger value="blog">Blog Articles</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="dashboard" className="space-y-6">
+            {/* Metrics Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Complaints</CardTitle>
+                  <FileText className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">{complaints.length}</div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Filed by consumers
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Active Investigations</CardTitle>
+                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">
+                    {mockPetitions.filter(p => p.status === 'active' || p.status === 'investigating').length}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Currently under review
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Supporters</CardTitle>
+                  <BarChart3 className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">
+                    {mockPetitions.reduce((sum, p) => sum + p.supporters, 0)}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Across all investigations
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Investigations Overview */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Investigations Overview</CardTitle>
+                <CardDescription>Current status of all brand investigations</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Brand</TableHead>
+                      <TableHead>Investigation</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead className="text-right">Supporters</TableHead>
+                      <TableHead className="text-right">Comments</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mockPetitions.map((petition) => (
+                      <TableRow key={petition.id}>
+                        <TableCell className="font-medium">{petition.brand}</TableCell>
+                        <TableCell>{petition.title}</TableCell>
+                        <TableCell>
+                          <Badge variant="outline" className={`${getStatusColor(petition.status)} text-white border-0`}>
+                            {getStatusLabel(petition.status)}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-right">{petition.supporters}</TableCell>
+                        <TableCell className="text-right">{petition.comments.length}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+
+            {/* Recent Complaints */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Recent Complaints</CardTitle>
+                <CardDescription>Latest consumer complaints submitted</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {complaints.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No complaints submitted yet
+                  </div>
+                ) : (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Brand</TableHead>
+                        <TableHead>Category</TableHead>
+                        <TableHead className="text-right">Amount</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {complaints.slice().reverse().slice(0, 10).map((complaint, index) => (
+                        <TableRow key={index}>
+                          <TableCell>
+                            {new Date(complaint.submittedAt).toLocaleDateString()}
+                          </TableCell>
+                          <TableCell className="font-medium">{complaint.name}</TableCell>
+                          <TableCell>{complaint.brandName}</TableCell>
+                          <TableCell>
+                            <Badge variant="secondary">
+                              {complaint.category?.replace("-", " ")}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {complaint.amount ? `£${parseFloat(complaint.amount).toFixed(2)}` : "-"}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
 
           <TabsContent value="investigations" className="space-y-6">
             <Card>
