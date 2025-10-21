@@ -33,8 +33,8 @@ const Index = () => {
       
       <main className="container py-12">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Active Investigations</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-2">Active Investigations</h2>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Brands currently under observation for consumer protection violations
           </p>
         </div>

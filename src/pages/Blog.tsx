@@ -12,12 +12,12 @@ export default function Blog() {
       <Header />
       
       <main className="container py-12">
-        <div className="max-w-3xl mx-auto text-center mb-12">
+        <div className="max-w-3xl mx-auto text-center mb-12 px-4">
           <div className="flex justify-center mb-4">
-            <BookOpen className="w-12 h-12 text-primary" />
+            <BookOpen className="w-10 h-10 sm:w-12 sm:h-12 text-primary" />
           </div>
-          <h1 className="text-4xl font-bold mb-4">Consumer Rights Blog</h1>
-          <p className="text-lg text-muted-foreground">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4">Consumer Rights Blog</h1>
+          <p className="text-base sm:text-lg text-muted-foreground">
             Expert insights, guides, and investigations to help you understand and protect your consumer rights.
           </p>
         </div>

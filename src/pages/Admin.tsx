@@ -101,10 +101,10 @@ export default function Admin() {
         </Alert>
 
         <Tabs defaultValue="dashboard" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6">
-            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-            <TabsTrigger value="investigations">Investigations</TabsTrigger>
-            <TabsTrigger value="blog">Blog Articles</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 mb-6 h-auto">
+            <TabsTrigger value="dashboard" className="text-xs sm:text-sm">Dashboard</TabsTrigger>
+            <TabsTrigger value="investigations" className="text-xs sm:text-sm">Investigations</TabsTrigger>
+            <TabsTrigger value="blog" className="text-xs sm:text-sm">Blog Articles</TabsTrigger>
           </TabsList>
 
           <TabsContent value="dashboard" className="space-y-6">
@@ -161,32 +161,34 @@ export default function Admin() {
                 <CardDescription>Current status of all brand investigations</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Brand</TableHead>
-                      <TableHead>Investigation</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead className="text-right">Supporters</TableHead>
-                      <TableHead className="text-right">Comments</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {mockPetitions.map((petition) => (
-                      <TableRow key={petition.id}>
-                        <TableCell className="font-medium">{petition.brand}</TableCell>
-                        <TableCell>{petition.title}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline" className={`${getStatusColor(petition.status)} text-white border-0`}>
-                            {getStatusLabel(petition.status)}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="text-right">{petition.supporters}</TableCell>
-                        <TableCell className="text-right">{petition.comments.length}</TableCell>
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="min-w-[100px]">Brand</TableHead>
+                        <TableHead className="min-w-[150px]">Investigation</TableHead>
+                        <TableHead className="min-w-[120px]">Status</TableHead>
+                        <TableHead className="text-right min-w-[100px]">Supporters</TableHead>
+                        <TableHead className="text-right min-w-[100px]">Comments</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {mockPetitions.map((petition) => (
+                        <TableRow key={petition.id}>
+                          <TableCell className="font-medium">{petition.brand}</TableCell>
+                          <TableCell className="text-sm">{petition.title}</TableCell>
+                          <TableCell>
+                            <Badge variant="outline" className={`${getStatusColor(petition.status)} text-white border-0 text-xs`}>
+                              {getStatusLabel(petition.status)}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">{petition.supporters}</TableCell>
+                          <TableCell className="text-right">{petition.comments.length}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               </CardContent>
             </Card>
 
@@ -202,36 +204,38 @@ export default function Admin() {
                     No complaints submitted yet
                   </div>
                 ) : (
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Brand</TableHead>
-                        <TableHead>Category</TableHead>
-                        <TableHead className="text-right">Amount</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {complaints.slice().reverse().slice(0, 10).map((complaint, index) => (
-                        <TableRow key={index}>
-                          <TableCell>
-                            {new Date(complaint.submittedAt).toLocaleDateString()}
-                          </TableCell>
-                          <TableCell className="font-medium">{complaint.name}</TableCell>
-                          <TableCell>{complaint.brandName}</TableCell>
-                          <TableCell>
-                            <Badge variant="secondary">
-                              {complaint.category?.replace("-", " ")}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="text-right">
-                            {complaint.amount ? `£${parseFloat(complaint.amount).toFixed(2)}` : "-"}
-                          </TableCell>
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="min-w-[100px]">Date</TableHead>
+                          <TableHead className="min-w-[120px]">Name</TableHead>
+                          <TableHead className="min-w-[120px]">Brand</TableHead>
+                          <TableHead className="min-w-[140px]">Category</TableHead>
+                          <TableHead className="text-right min-w-[80px]">Amount</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {complaints.slice().reverse().slice(0, 10).map((complaint, index) => (
+                          <TableRow key={index}>
+                            <TableCell className="text-sm">
+                              {new Date(complaint.submittedAt).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell className="font-medium text-sm">{complaint.name}</TableCell>
+                            <TableCell className="text-sm">{complaint.brandName}</TableCell>
+                            <TableCell>
+                              <Badge variant="secondary" className="text-xs">
+                                {complaint.category?.replace("-", " ")}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="text-right text-sm">
+                              {complaint.amount ? `£${parseFloat(complaint.amount).toFixed(2)}` : "-"}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
                 )}
               </CardContent>
             </Card>

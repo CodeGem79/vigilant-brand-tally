@@ -49,10 +49,10 @@ const FileComplaint = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="container mx-auto px-4 py-12 max-w-3xl">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">File a Complaint</h1>
-          <p className="text-muted-foreground">
+      <main className="container mx-auto px-4 py-8 sm:py-12 max-w-3xl">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">File a Complaint</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Help us hold companies accountable. Submit your complaint and we'll use it to build cases for trading standards.
           </p>
         </div>

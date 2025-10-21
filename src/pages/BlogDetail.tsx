@@ -49,9 +49,9 @@ export default function BlogDetail() {
             {article.featured && <Badge variant="destructive">Featured</Badge>}
           </div>
 
-          <h1 className="text-4xl font-bold mb-4">{article.title}</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">{article.title}</h1>
 
-          <div className="flex items-center gap-4 text-muted-foreground mb-8 pb-8 border-b">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-muted-foreground mb-8 pb-8 border-b">
             <div className="flex items-center gap-1">
               <User className="w-4 h-4" />
               <span>{article.author}</span>

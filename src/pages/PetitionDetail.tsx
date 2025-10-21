@@ -68,17 +68,17 @@ export default function PetitionDetail() {
 
         {/* Header Section */}
         <div className="mb-8">
-          <div className="flex items-start justify-between gap-4 mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-4">
             <Badge className={statusColors[petition.status]}>
               {statusLabels[petition.status]}
             </Badge>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-xs sm:text-sm text-muted-foreground">
               Opened {new Date(petition.createdAt).toLocaleDateString()}
             </div>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">{petition.brand}</h1>
-          <p className="text-xl text-muted-foreground">{petition.title}</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">{petition.brand}</h1>
+          <p className="text-lg sm:text-xl text-muted-foreground">{petition.title}</p>
         </div>
 
         {/* Support & Stats */}
